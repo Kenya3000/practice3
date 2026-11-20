@@ -1,52 +1,48 @@
-import java.util.ArrayList;
+mport java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class main3{
+public class Main {
     public static void main(String[] args) {
         List<String> tasks = new ArrayList<>();
         Scanner scanner = new Scanner(System.in);
 
         while (true) {
-            System.out.println("""
-                    Меню:
-                    1  добавить задачу
-                    2  удалить первую задачу
-                    3  удалить задачу по номеру
-                    4  показать все задачи
-                    5  выход""");
-            System.out.print("Введите команду: ");
+            System.out.println("1 - добавить задачу");
+            System.out.println("2 - удалить первую задачу");
+            System.out.println("3 - удалить задачу по номеру");
+            System.out.println("4 - показать все задачи");
+            System.out.println("5 - выход");
+            System.out.print("Выберите команду: ");
 
-            String line = scanner.nextLine().trim();
+            String choice = scanner.nextLine();
 
-            if (line.equals("1")) {
-                System.out.print("Введите текст задачи: ");
-                String task = scanner.nextLine().trim();
+            if (choice.equals("1")) {
+                System.out.print("Введите задачу: ");
+                String task = scanner.nextLine();
                 tasks.add(task);
                 System.out.println("Задача добавлена.");
-            } else if (line.equals("2")) {
+            } else if (choice.equals("2")) {
                 if (tasks.isEmpty()) {
                     System.out.println("Список пуст");
                 } else {
-                    System.out.println("Удалена задача: " + tasks.remove(0));
+                    tasks.remove(0);
+                    System.out.println("Первая задача удалена.");
                 }
-            } else if (line.equals("3")) {
+            } else if (choice.equals("3")) {
                 if (tasks.isEmpty()) {
                     System.out.println("Список пуст");
-                    continue;
-                }
-                System.out.print("Введите номер задачи: ");
-                try {
-                    int number = Integer.parseInt(scanner.nextLine().trim());
-                    if (number < 1 || number > tasks.size()) {
+                } else {
+                    System.out.print("Введите номер задачи (от 1 до " + tasks.size() + "): ");
+                    int num = Integer.parseInt(scanner.nextLine());
+                    if (num < 1 || num > tasks.size()) {
                         System.out.println("Неверный номер");
                     } else {
-                        System.out.println("Удалена задача: " + tasks.remove(number - 1));
+                        tasks.remove(num - 1);
+                        System.out.println("Задача удалена.");
                     }
-                } catch (NumberFormatException e) {
-                    System.out.println("Неверный номер");
                 }
-            } else if (line.equals("4")) {
+            } else if (choice.equals("4")) {
                 if (tasks.isEmpty()) {
                     System.out.println("Список пуст");
                 } else {
@@ -54,12 +50,15 @@ public class main3{
                         System.out.println((i + 1) + ". " + tasks.get(i));
                     }
                 }
-            } else if (line.equals("5")) {
-                System.out.println("Программа завершена.");
-                return;
+            } else if (choice.equals("5")) {
+                break;
             } else {
                 System.out.println("Неверная команда");
             }
         }
+
+        scanner.close();
     }
 }
+
+
