@@ -7,13 +7,25 @@ public class Main {
         }
 
         Map<String, Integer> freq = new HashMap<>();
-        for (String word : text.toLowerCase().split("\\W+")) {
-            if (!word.isEmpty()) {
-                freq.put(word, freq.getOrDefault(word, 0) + 1);
+        StringBuilder current = new StringBuilder();
+
+        for (char c : text.toLowerCase().toCharArray()) {
+            if (Character.isLetterOrDigit(c)) {
+                current.append(c);
+            } else {
+                if (current.length() > 0) {
+                    String word = current.toString();
+                    freq.put(word, freq.getOrDefault(word, 0) + 1);
+                    current.setLength(0);
+                }
             }
         }
+        if (current.length() > 0) {
+            String word = current.toString();
+            freq.put(word, freq.getOrDefault(word, 0) + 1);
+        }
 
-        List> entries = new ArrayList<>(freq.entrySet());
+        List<Map.Entry<String, Integer>> entries = new ArrayList<>(freq.entrySet());
         entries.sort((a, b) -> {
             int cmp = Integer.compare(b.getValue(), a.getValue());
             return cmp != 0 ? cmp : a.getKey().compareTo(b.getKey());
@@ -30,12 +42,6 @@ public class Main {
         String text = "java is great java is powerful " +
                       "python is great too but java is java";
         int N = 3;
-
         System.out.println(topNWords(text, N));
     }
 }
-
-
-
-
-
