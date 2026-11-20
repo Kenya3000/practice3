@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 public class Main {
-    public static List<List<String» groupAnagrams(List<String> words) {
+    public static List<List<String> groupAnagrams(List<String> words) {
         Map<String, List<String» map = new HashMap<>();
         List<String> order = new ArrayList<>();
 
